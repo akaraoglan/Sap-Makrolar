@@ -1,0 +1,51 @@
+Sub RunSAPScript()
+    Dim SapGuiAuto As Object
+    Dim sapApp As Object         ' SAP scripting engine
+    Dim connection As Object
+    Dim session As Object
+    Dim i As Integer
+    Dim LastRow As Long
+    Dim deger As String, deger1 As String, deger2 As String
+
+    ' SAP GUI oturumunu başlat
+    On Error Resume Next
+    Set SapGuiAuto = GetObject("SAPGUI")
+    If SapGuiAuto Is Nothing Then
+        MsgBox "SAP GUI açık değil!", vbCritical
+        Exit Sub
+    End If
+
+    Set sapApp = SapGuiAuto.GetScriptingEngine
+    If sapApp Is Nothing Then
+        MsgBox "SAP Scripting motoru bulunamadı!", vbCritical
+        Exit Sub
+    End If
+
+    Set connection = sapApp.Children(0)
+    If connection Is Nothing Then
+        MsgBox "Aktif bir SAP bağlantısı bulunamadı!", vbCritical
+        Exit Sub
+    End If
+
+    Set session = connection.Children(0)
+    If session Is Nothing Then
+        MsgBox "SAP oturumu başlatılamadı!", vbCritical
+        Exit Sub
+    End If
+    On Error GoTo 0 ' Hata geçişini kapat
+
+    ' SAP ekranını büyüt
+    session.findById("wnd[0]").maximize
+
+    ' İlk alanı doldur
+    session.findById("wnd[0]/usr/ctxtSO_BUDAT-LOW").Text = "01012020"
+    
+    ' 3 saniye bekle
+    Application.Wait Now + TimeValue("0:00:03")
+    
+    ' İkinci alanı doldur
+    session.findById("wnd[0]/usr/ctxtSO_BUDAT-HIGH").Text = "666666"
+    
+    ' (İstersen buradan sonra Enter, F8 vb. tuş gönderebilirsin)
+    ' session.findById("wnd[0]").sendVKey 8 ' F8 örneği
+End Sub
