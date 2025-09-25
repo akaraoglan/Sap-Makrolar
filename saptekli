@@ -36,7 +36,7 @@ Sub RunSAPScript()
     ' SAP ekranını büyüt
     session.findById("wnd[0]").maximize
 
-    ' Aşağıdaki değişkenler excelde 1,2,3 nolu sütunların başlık hariç ilk hücrelerini seçer (Aşağıdaki kodun anlamı: A Sütunundan A2, B sütunundan B2, C sütunundan C2)
+    ' Aşağıdaki değişkenler excelde 1,2,3 nolu sütunların başlık hariç ilk hücrelerini seçer (Aşağıdaki kodun anlamı: A Sütunundan A2, B sütunundan B2, C sütunundan C2) (Bu örnekte sayfa adı Sayfa1 olarak belirlenmiştir, verileri aktaracağınız sayfanın adıyla güncelleyin)
     
         deger1 = ThisWorkbook.Sheets("Sayfa1").Cells(2, 1).Value
         deger2 = ThisWorkbook.Sheets("Sayfa1").Cells(2, 2).Value
